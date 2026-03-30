@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx server.ts",
-    "build": "prisma generate && vite build && esbuild server.ts --bundle --platform=node --format=esm --outfile=dist/server.js --external:express --external:cors --external:helmet --external:cookie-parser --external:bcrypt --external:jsonwebtoken --external:@prisma/client --external:zod --external:vite",
+    "dev": "tsx backend/src/server.ts",
+    "build": "prisma generate && vite build && esbuild backend/src/server.ts --bundle --platform=node --format=esm --outfile=dist/server.js --external:express --external:cors --external:helmet --external:cookie-parser --external:bcrypt --external:jsonwebtoken --external:@prisma/client --external:zod --external:vite",
     "lint": "tsc --noEmit",
     "preview": "vite preview",
     "start": "node dist/server.js",
@@ -43,6 +43,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
@@ -53,10 +54,17 @@
     "@types/node-cron": "^3.0.11",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.27.4",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "prettier": "^3.8.1",
     "prisma": "^6.0.0",
     "tsx": "^4.21.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "typescript-eslint": "^8.57.2"
   }
 }
