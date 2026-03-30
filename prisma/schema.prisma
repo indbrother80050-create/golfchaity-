@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String         @id @default(uuid())
+  email             String         @unique
+  password          String
+  name              String?
+  role              String         @default("USER") // PUBLIC, USER, ADMIN
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  
+  // Relations
+  subscription      Subscription?
+  scores            Score[]
+  charityId         String?
+  charity           Charity?       @relation(fields: [charityId], references: [id])
+  charityContribution Int          @default(10) // Percentage
+  winnings          Winner[]
+  donations         Donation[]
+}
+
+model Subscription {
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id])
+  stripeCustomerId  String?
+  stripeSubscriptionId String?
+  plan              String   // MONTHLY, YEARLY
+  status            String   // ACTIVE, CANCELLED, EXPIRED
+  currentPeriodEnd  DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Score {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  value     Int      // 1-45
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+}
+
+model Charity {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  logoUrl     String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  users       User[]
+  donations   Donation[]
+}
+
+model Draw {
+  id          String       @id @default(uuid())
+  date        DateTime     @default(now())
+  numbers     String       // JSON array of 5 numbers
+  mode        String       // RANDOM, WEIGHTED
+  results     DrawResult[]
+  createdAt   DateTime     @default(now())
+}
+
+model DrawResult {
+  id        String   @id @default(uuid())
+  drawId    String
+  draw      Draw     @relation(fields: [drawId], references: [id])
+  userId    String
+  matches   Int      // 3, 4, or 5
+  prize     Float
+  createdAt DateTime @default(now())
+}
+
+model Winner {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  drawResultId String
+  proofUrl    String?
+  status      String   @default("PENDING") // PENDING, APPROVED, PAID, REJECTED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Donation {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  charityId String
+  charity   Charity  @relation(fields: [charityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  amount    Float
+  date      DateTime @default(now())
+}

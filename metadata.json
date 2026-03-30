@@ -1,0 +1,8 @@
+{
+  "name": "Golf Charity Pro",
+  "description": "A production-ready subscription platform for golf score tracking, monthly draws, and charity contributions.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
