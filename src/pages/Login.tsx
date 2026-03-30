@@ -30,43 +30,43 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-12 bg-[#f5f5f0]">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="max-w-md w-full bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-gray-100"
+        className="max-w-md w-full bg-white rounded-[32px] shadow-[0px_4px_20px_rgba(0,0,0,0.05)] p-10 border border-[#e8e8e3]"
       >
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Welcome Back</h2>
-          <p className="text-gray-500 mt-2">Sign in to manage your scores and draws</p>
+        <div className="text-center mb-10">
+          <h2 className="text-4xl font-serif text-[#2c2c28] mb-2">Welcome Back</h2>
+          <p className="text-[#6b6b63]">Sign in to manage your scores and draws</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm mb-6 border border-red-100">
+          <div className="bg-[#fdf2f2] text-[#c53030] p-4 rounded-xl text-sm mb-6 border border-[#fbd5d5]">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+            <label className="block text-sm font-medium text-[#4a4a44] mb-2 uppercase tracking-wider text-xs">Email Address</label>
             <input 
               type="email" 
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-[#d1d1c7] bg-[#fdfdfc] focus:ring-2 focus:ring-[#5A5A40] focus:border-transparent outline-none transition-all text-[#2c2c28]"
               placeholder="name@example.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+            <label className="block text-sm font-medium text-[#4a4a44] mb-2 uppercase tracking-wider text-xs">Password</label>
             <input 
               type="password" 
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-[#d1d1c7] bg-[#fdfdfc] focus:ring-2 focus:ring-[#5A5A40] focus:border-transparent outline-none transition-all text-[#2c2c28]"
               placeholder="••••••••"
             />
           </div>
@@ -74,15 +74,15 @@ export default function Login() {
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold hover:bg-emerald-700 transition-all disabled:opacity-50"
+            className="w-full bg-[#5A5A40] text-[#f5f5f0] py-4 rounded-full font-medium tracking-wide hover:bg-[#4a4a34] transition-all disabled:opacity-50 mt-4"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        <p className="text-center mt-8 text-sm text-gray-500">
+        <p className="text-center mt-8 text-sm text-[#6b6b63]">
           Don't have an account?{" "}
-          <Link to="/register" className="text-emerald-600 font-bold hover:underline">Register now</Link>
+          <Link to="/register" className="text-[#5A5A40] font-semibold hover:underline underline-offset-4">Register now</Link>
         </p>
       </motion.div>
     </div>

@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import authRouter from "./src/routes/auth.ts";
 import scoreRouter from "./src/routes/scores.ts";
 import charityRouter from "./src/routes/charities.ts";
+import webhookRouter from "./src/routes/webhooks.ts";
 
 dotenv.config();
 
@@ -27,6 +28,10 @@ async function startServer() {
     origin: process.env.APP_URL || "http://localhost:3000",
     credentials: true,
   }));
+
+  // IMPORTANT: Webhooks must be mounted BEFORE express.json()
+  app.use("/api/v1/webhooks", webhookRouter);
+
   app.use(express.json());
   app.use(cookieParser());
 
@@ -38,6 +43,15 @@ async function startServer() {
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/scores", scoreRouter);
   app.use("/api/v1/charities", charityRouter);
+
+  // Global Error Handler
+  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error("Unhandled Error:", err);
+    res.status(500).json({
+      error: "Internal Server Error",
+      message: process.env.NODE_ENV === "development" ? err.message : "Something went wrong",
+    });
+  });
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {

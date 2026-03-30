@@ -37,17 +37,21 @@ export const authorize = (roles: string[]) => {
 };
 
 export const checkSubscription = async (req: AuthRequest, res: Response, next: NextFunction) => {
-  if (!req.user) return res.status(401).json({ error: "Unauthorized" });
+  try {
+    if (!req.user) return res.status(401).json({ error: "Unauthorized" });
 
-  if (req.user.role === "ADMIN") return next();
+    if (req.user.role === "ADMIN") return next();
 
-  const sub = await prisma.subscription.findUnique({
-    where: { userId: req.user.id },
-  });
+    const sub = await prisma.subscription.findUnique({
+      where: { userId: req.user.id },
+    });
 
-  if (!sub || sub.status !== "ACTIVE") {
-    return res.status(403).json({ error: "Active subscription required" });
+    if (!sub || sub.status !== "ACTIVE") {
+      return res.status(403).json({ error: "Active subscription required" });
+    }
+
+    next();
+  } catch (error) {
+    next(error);
   }
-
-  next();
 };

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "prisma generate && vite build",
+    "build": "prisma generate && vite build && esbuild server.ts --bundle --platform=node --format=esm --outfile=dist/server.js --external:express --external:cors --external:helmet --external:cookie-parser --external:bcrypt --external:jsonwebtoken --external:@prisma/client --external:zod --external:vite",
     "lint": "tsc --noEmit",
     "preview": "vite preview",
     "start": "node dist/server.js",
@@ -54,6 +54,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.21",
+    "esbuild": "^0.27.4",
     "prisma": "^6.0.0",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2"

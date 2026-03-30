@@ -48,25 +48,25 @@ export default function Dashboard() {
     },
   });
 
-  if (userLoading) return <div className="p-12 text-center">Loading dashboard...</div>;
+  if (userLoading) return <div className="p-12 text-center text-[#6b6b63]">Loading dashboard...</div>;
   if (!user) return null;
 
   const isActive = user.subscription?.status === "ACTIVE";
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12 bg-[#f5f5f0] min-h-[calc(100vh-64px)]">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold">Hello, {user.name}</h1>
-        <p className="text-gray-500 mt-2">Here's what's happening with your golf game.</p>
+        <h1 className="text-5xl font-serif text-[#2c2c28]">Hello, {user.name}</h1>
+        <p className="text-[#6b6b63] mt-3 text-lg">Here's what's happening with your golf game.</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Score Tracking */}
         <div className="lg:col-span-2 space-y-8">
-          <section className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
+          <section className="bg-white rounded-[32px] p-8 border border-[#e8e8e3] shadow-[0px_4px_20px_rgba(0,0,0,0.03)]">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-xl font-bold flex items-center">
-                <History className="w-5 h-5 mr-2 text-emerald-600" />
+              <h2 className="text-2xl font-serif flex items-center text-[#2c2c28]">
+                <History className="w-5 h-5 mr-3 text-[#5A5A40]" />
                 Recent Scores
               </h2>
               <div className="flex space-x-2">
@@ -77,12 +77,12 @@ export default function Dashboard() {
                   value={newScore}
                   onChange={(e) => setNewScore(e.target.value)}
                   placeholder="Score"
-                  className="w-24 px-3 py-2 rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-24 px-4 py-2 rounded-xl border border-[#d1d1c7] outline-none focus:ring-2 focus:ring-[#5A5A40] bg-[#fdfdfc]"
                 />
                 <button 
                   onClick={() => addScoreMutation.mutate(Number(newScore))}
                   disabled={!newScore || addScoreMutation.isPending}
-                  className="bg-emerald-600 text-white p-2 rounded-lg hover:bg-emerald-700 disabled:opacity-50"
+                  className="bg-[#5A5A40] text-white p-2 px-4 rounded-xl hover:bg-[#4a4a34] disabled:opacity-50 transition-all flex items-center justify-center"
                 >
                   <Plus className="w-5 h-5" />
                 </button>
@@ -90,19 +90,19 @@ export default function Dashboard() {
             </div>
 
             {scoresLoading ? (
-              <p>Loading scores...</p>
+              <p className="text-[#6b6b63]">Loading scores...</p>
             ) : scores?.length > 0 ? (
               <div className="space-y-4">
                 {scores.map((score: any) => (
-                  <div key={score.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center font-bold text-lg text-emerald-600 border border-gray-100">
+                  <div key={score.id} className="flex items-center justify-between p-5 bg-[#f5f5f0] rounded-2xl border border-[#e8e8e3]">
+                    <div className="flex items-center space-x-5">
+                      <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center font-serif font-bold text-2xl text-[#5A5A40] border border-[#d1d1c7] shadow-sm">
                         {score.value}
                       </div>
                       <div>
-                        <p className="font-semibold">Standard Round</p>
-                        <p className="text-xs text-gray-500 flex items-center">
-                          <Calendar className="w-3 h-3 mr-1" />
+                        <p className="font-semibold text-[#2c2c28]">Standard Round</p>
+                        <p className="text-sm text-[#6b6b63] flex items-center mt-1">
+                          <Calendar className="w-4 h-4 mr-1.5 opacity-70" />
                           {new Date(score.date).toLocaleDateString()}
                         </p>
                       </div>
@@ -111,8 +111,8 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                <p className="text-gray-500">No scores recorded yet. Add your first round!</p>
+              <div className="text-center py-16 bg-[#f5f5f0] rounded-2xl border border-dashed border-[#d1d1c7]">
+                <p className="text-[#6b6b63]">No scores recorded yet. Add your first round!</p>
               </div>
             )}
           </section>
@@ -120,30 +120,30 @@ export default function Dashboard() {
 
         {/* Sidebar */}
         <div className="space-y-8">
-          <section className="bg-emerald-900 text-white rounded-3xl p-8">
-            <h3 className="text-lg font-bold mb-4 flex items-center">
-              <Trophy className="w-5 h-5 mr-2 text-emerald-400" />
+          <section className="bg-[#2c2c28] text-[#f5f5f0] rounded-[32px] p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+            <h3 className="text-xl font-serif mb-6 flex items-center">
+              <Trophy className="w-5 h-5 mr-3 text-[#c2b280]" />
               Subscription
             </h3>
-            <div className="space-y-4">
-              <div className="p-4 bg-white/10 rounded-2xl">
-                <p className="text-sm text-emerald-100/60">Current Plan</p>
-                <p className="text-xl font-bold">{isActive ? "Pro Monthly" : "No Active Plan"}</p>
+            <div className="space-y-5">
+              <div className="p-5 bg-white/5 rounded-2xl border border-white/10">
+                <p className="text-sm text-[#a3a39b] uppercase tracking-wider mb-1">Current Plan</p>
+                <p className="text-2xl font-serif">{isActive ? "Pro Monthly" : "No Active Plan"}</p>
                 {isActive && (
-                  <p className="text-xs text-emerald-100/40 mt-1">
+                  <p className="text-sm text-[#8a8a82] mt-2">
                     Expires: {new Date(user.subscription.currentPeriodEnd).toLocaleDateString()}
                   </p>
                 )}
               </div>
               {isActive ? (
-                <button className="w-full bg-emerald-500 py-3 rounded-xl font-bold hover:bg-emerald-400 transition-all">
+                <button className="w-full bg-[#5A5A40] text-white py-3.5 rounded-full font-medium tracking-wide hover:bg-[#4a4a34] transition-all">
                   Manage Billing
                 </button>
               ) : (
                 <button 
                   onClick={() => activateSubMutation.mutate()}
                   disabled={activateSubMutation.isPending}
-                  className="w-full bg-emerald-500 py-3 rounded-xl font-bold hover:bg-emerald-400 transition-all"
+                  className="w-full bg-[#5A5A40] text-white py-3.5 rounded-full font-medium tracking-wide hover:bg-[#4a4a34] transition-all disabled:opacity-50"
                 >
                   {activateSubMutation.isPending ? "Activating..." : "Activate Subscription"}
                 </button>
@@ -151,13 +151,13 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <section className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
-            <h3 className="text-lg font-bold mb-4 flex items-center">
-              <Heart className="w-5 h-5 mr-2 text-red-500" />
-              Charity
+          <section className="bg-white rounded-[32px] p-8 border border-[#e8e8e3] shadow-[0px_4px_20px_rgba(0,0,0,0.03)]">
+            <h3 className="text-xl font-serif mb-4 flex items-center text-[#2c2c28]">
+              <Heart className="w-5 h-5 mr-3 text-[#8c3b3b]" />
+              Charity Impact
             </h3>
-            <p className="text-sm text-gray-500 mb-4">You are currently contributing 10% of your winnings to your selected charity.</p>
-            <button className="w-full border border-gray-200 py-3 rounded-xl font-bold hover:bg-gray-50 transition-all">
+            <p className="text-[#6b6b63] mb-6 leading-relaxed">You are currently contributing 10% of your winnings to your selected charity.</p>
+            <button className="w-full border border-[#d1d1c7] text-[#4a4a44] py-3.5 rounded-full font-medium tracking-wide hover:bg-[#f5f5f0] transition-all">
               Change Charity
             </button>
           </section>

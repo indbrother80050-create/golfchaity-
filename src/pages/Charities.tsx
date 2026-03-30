@@ -15,52 +15,52 @@ export default function Charities() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-16 bg-[#f5f5f0] min-h-[calc(100vh-64px)]">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4">Our Charity Partners</h1>
-        <p className="text-gray-500 max-w-2xl mx-auto">
+        <h1 className="text-5xl font-serif text-[#2c2c28] mb-4">Our Charity Partners</h1>
+        <p className="text-[#6b6b63] max-w-2xl mx-auto text-lg leading-relaxed">
           We partner with leading organizations to ensure your contributions make a real impact. 
           Choose the cause that matters most to you.
         </p>
       </div>
 
-      <div className="mb-12 max-w-xl mx-auto relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+      <div className="mb-16 max-w-xl mx-auto relative">
+        <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#a3a39b] w-5 h-5" />
         <input 
           type="text" 
           placeholder="Search charities..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 outline-none focus:ring-2 focus:ring-emerald-500 transition-all shadow-sm"
+          className="w-full pl-14 pr-6 py-4 rounded-full border border-[#d1d1c7] bg-[#fdfdfc] outline-none focus:ring-2 focus:ring-[#5A5A40] transition-all shadow-[0px_4px_20px_rgba(0,0,0,0.03)] text-[#2c2c28]"
         />
       </div>
 
       {isLoading ? (
-        <div className="text-center py-20">Loading charities...</div>
+        <div className="text-center py-20 text-[#6b6b63]">Loading charities...</div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {charities?.map((charity: any) => (
-            <div key={charity.id} className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-              <div className="w-16 h-16 bg-gray-50 rounded-2xl mb-6 flex items-center justify-center overflow-hidden border border-gray-100">
+            <div key={charity.id} className="bg-white rounded-[32px] p-8 border border-[#e8e8e3] shadow-[0px_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.06)] transition-all flex flex-col group">
+              <div className="w-16 h-16 bg-[#f5f5f0] rounded-2xl mb-6 flex items-center justify-center overflow-hidden border border-[#d1d1c7] group-hover:scale-105 transition-transform">
                 {charity.logoUrl ? (
                   <img src={charity.logoUrl} alt={charity.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 ) : (
-                  <Heart className="w-8 h-8 text-red-500" />
+                  <Heart className="w-8 h-8 text-[#8c3b3b]" />
                 )}
               </div>
-              <h3 className="text-xl font-bold mb-2">{charity.name}</h3>
-              <p className="text-gray-500 text-sm mb-6 flex-grow">{charity.description}</p>
-              <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-50">
+              <h3 className="text-2xl font-serif text-[#2c2c28] mb-3">{charity.name}</h3>
+              <p className="text-[#6b6b63] text-sm mb-8 flex-grow leading-relaxed">{charity.description}</p>
+              <div className="flex items-center justify-between mt-auto pt-6 border-t border-[#e8e8e3]">
                 <a 
                   href={charity.website} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-emerald-600 text-sm font-bold flex items-center hover:underline"
+                  className="text-[#5A5A40] text-sm font-semibold flex items-center hover:underline underline-offset-4"
                 >
                   Visit Website
-                  <ExternalLink className="ml-1 w-4 h-4" />
+                  <ExternalLink className="ml-1.5 w-4 h-4" />
                 </a>
-                <button className="bg-emerald-50 text-emerald-600 px-4 py-2 rounded-xl text-sm font-bold hover:bg-emerald-100 transition-colors">
+                <button className="bg-[#f5f5f0] text-[#5A5A40] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#e8e8e3] transition-colors border border-[#d1d1c7]">
                   Select
                 </button>
               </div>
